@@ -547,6 +547,46 @@ OPERATOR_DEF(uint16_t);
 OPERATOR_DEF(uint32_t);
 OPERATOR_DEF(uint64_t);
 OPERATOR_DEF(double);
+//OPERATOR_DEF(std::string);
+
+amf3object::operator std::string() {
+	std::string s;
+	switch (type) {
+	case Null:
+	case Undefined:
+		{
+			return "0";
+		}
+	case True:
+	case False:
+		{
+			s = _value.booltest;
+			return s;
+		}
+	case Integer:
+		{
+			s = _value.integer;
+			return s;
+		}
+	case Number:
+		{
+			s = _value.number;
+			return s;
+		}
+	case Date:
+		{
+			return _value.date;
+		}
+	case String:
+		{
+			return _value.text;
+		}
+	default:
+		{
+			return "0";
+		}
+	}
+}
 
 amf3object::operator char*()
 {
@@ -1017,8 +1057,7 @@ amf3object  amf3parser::ReadNextObject(void)
 		obj._value._object = ReadAMF3Object();
 		return obj;
 	default:
-		char temp[30];
-		Log(temp, "Invalid object type (%d)", type);
+		Log("Invalid object type (%d)", type);
 		//delete obj;
 	}
 	return amf3object();
@@ -1176,7 +1215,7 @@ amf3objectmap * amf3parser::ReadAMF3Object(void)
 	//Log("Reading new AMF3Object");
 	int flags = (Flags)ReadInteger();
 
-	if ((flags | Inline) == 0)
+	if ((flags & Inline) == 0)
 	{
 		return objectlist.GetObj(((int)flags)>>1)._value._object;
 	}
@@ -1204,6 +1243,11 @@ amf3objectmap * amf3parser::ReadAMF3Object(void)
 
 		if (externalizable && dynamic)
 			throw "Serialized objects cannot be both dynamic and externalizable";
+
+		// TODO FIX EXTERNALIZED CLASS CODE
+		if (externalizable)
+			throw "Externalized object. CATCH()";
+		// TODO FIX IT
 
 		vector<char *> properties;
 		//properties = new vector<char *>;

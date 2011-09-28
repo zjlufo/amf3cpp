@@ -30,7 +30,7 @@ public:
 	vector<T> properties;
 };
 
-#undef bool
+//#undef bool
 class amf3object
 {
 public:
