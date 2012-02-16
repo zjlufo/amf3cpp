@@ -1669,8 +1669,6 @@ void amf3writer::TypelessWrite(amf3objectmap * _object, amf3object & obj)
 			}
 			else*/
 			{
-				if (!strcmp((char*)_object->properties.propnames.at(i), "friendArmys"))
-					int i = 0;
 				TypelessWrite((char*)_object->properties.propnames.at(i));
 				Write((amf3object&)_object->Get(_object->properties.propnames.at(i)));
 			}
