@@ -32,6 +32,7 @@
 #include <map>
 #include <vector>
 #include <memory>
+#include <memory.h>
 
 void ByteSwap5(unsigned char * b, int n);
 
