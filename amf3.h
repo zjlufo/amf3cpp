@@ -79,13 +79,13 @@ public:
 		properties.push_back(obj);
 	}
 
-	void AddObj(string key, T obj)
+	void AddObj(std::string key, T obj)
 	{
 		propnames.push_back(key);
 		properties.push_back(obj);
 	}
 
-	T & GetObj(string key)
+	T & GetObj(std::string key)
 	{
 		for (unsigned int i = 0; i < propnames.size(); ++i)
 		{
@@ -100,7 +100,7 @@ public:
 		return properties.at(offset);
 	}
 
-	bool Exists(string key)
+	bool Exists(std::string key)
 	{
 		for (unsigned int i = 0; i < propnames.size(); ++i)
 		{
@@ -110,7 +110,7 @@ public:
 		return false;
 	}
 
-	std::vector<string> propnames;
+	std::vector<std::string> propnames;
 	std::vector<T> properties;
 };
 class amf3classdef
