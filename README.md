@@ -50,7 +50,7 @@ Can also access elements through C++11 ranged based for loop:
 ```C++
 for (auto object : arr)
 {
-  printf("%s", arr[0]["key"].c_str());
+  printf("%s", object["key"].c_str());
 }
 ```
 
